@@ -1,0 +1,48 @@
+﻿@model List<EmployeeManagement.Models.User>
+
+<h1>Users</h1>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Username</td>
+                <td>@user.Role</td>
+                
+                <td>
+                    <a asp-action="Edit" asp-route-id="@user.Id">
+                        Edit
+                    </a>
+                    |
+                    <a asp-action="Delete"
+                       asp-route-id="@user.Id">
+                        Delete
+                    </a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+
+<a asp-action="Create">Add User</a>
+
+<br />
+<br />
+
+<a asp-controller="Employee" asp-action="Index">
+    Back to Employees
+</a>

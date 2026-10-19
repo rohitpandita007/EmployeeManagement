@@ -1,0 +1,78 @@
+﻿@model List<EmployeeManagement.Models.Employee>
+@using System.Security.Claims
+
+<h1>Employees</h1>
+
+<form asp-controller="Account"
+      asp-action="Logout"
+      method="post">
+
+    <button type="submit">Logout</button>
+
+</form>
+
+<br />
+
+<br />
+
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create">Add Employee</a>
+}
+<br />
+<br />
+
+<table border="1">
+
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.Id</td>
+
+                <td>@employee.Name</td>
+
+                <td>@employee.Email</td>
+
+                <td>@employee.Department</td>
+
+                <td>@employee.Salary</td>
+
+                <td>
+                    <a asp-action="Details" asp-route-id="@employee.Id">
+                        Details
+                    </a>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <span>|</span>
+
+                        <a asp-action="Edit" asp-route-id="@employee.Id">
+                            Edit
+                        </a>
+
+                        <span>|</span>
+
+                        <a asp-action="Delete" asp-route-id="@employee.Id">
+                            Delete
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

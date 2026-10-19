@@ -1,0 +1,41 @@
+﻿@model EmployeeManagement.Models.User
+
+<h1>Add User</h1>
+
+<form asp-action="Create" method="post">
+
+    <div>
+        <label asp-for="Username"></label>
+        <input asp-for="Username" />
+        <span asp-validation-for="Username"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label>Password</label>
+        <input type="password" name="password" />
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Role"></label>
+
+        <select asp-for="Role">
+            <option value="User">User</option>
+            <option value="Admin">Admin</option>
+        </select>
+
+        <span asp-validation-for="Role"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">Save</button>
+
+</form>
+
+<br />
+
+<a asp-action="Index">Back to Users</a>

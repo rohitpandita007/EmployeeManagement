@@ -1,0 +1,37 @@
+﻿@model EmployeeManagement.Models.Employee
+
+<h1>Add Employee</h1>
+
+<form asp-action="Create" method="post">
+
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Department"></label>
+        <input asp-for="Department" />
+        <span asp-validation-for="Department"></span>
+    </div>
+
+    <div>
+        <label asp-for="Salary"></label>
+        <input asp-for="Salary" />
+        <span asp-validation-for="Salary"></span>
+    </div>
+
+    <button type="submit">Save</button>
+
+</form>
+
+<br />
+
+<a asp-action="Index">Back to Employees</a>

@@ -1,0 +1,21 @@
+
+# Build output
+bin/
+obj/
+
+# Visual Studio user-specific files
+*.csproj.user
+*.suo
+.vs/
+
+# Logs
+*.log
+
+# Local environment and secrets
+.env
+.env.*
+
+# User-specific IDE settings
+.idea/
+appsettings.json
+appsettings.Development.json

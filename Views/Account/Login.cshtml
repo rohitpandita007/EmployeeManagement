@@ -1,0 +1,30 @@
+﻿@model EmployeeManagement.Models.LoginModel
+
+<h1>Login</h1>
+
+<form asp-action="Login" method="post">
+
+    <div>
+        <label asp-for="Username"></label>
+        <input asp-for="Username" />
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" />
+    </div>
+
+    <br />
+
+    <button type="submit">Login</button>
+
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red;">
+        @ViewBag.Error
+    </p>
+}
