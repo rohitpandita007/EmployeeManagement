@@ -1,41 +1,68 @@
 ﻿@model EmployeeManagement.Models.User
+@{
+    ViewData["Title"] = "Add user";
+}
 
-<h1>Add User</h1>
-
-<form asp-action="Create" method="post">
-
+<div class="page-heading">
     <div>
-        <label asp-for="Username"></label>
-        <input asp-for="Username" />
-        <span asp-validation-for="Username"></span>
+        <p class="eyebrow">ACCESS & PERMISSIONS</p>
+        <h1 class="page-title">Add user</h1>
+        <p class="page-subtitle">
+            Create an account and assign its access role.
+        </p>
     </div>
+</div>
 
-    <br />
+<div class="form-card narrow">
+    <div class="form-top-icon" aria-hidden="true">＋</div>
+    <h2 class="panel-title">Account information</h2>
+    <p class="page-subtitle mb-3">
+        Choose a username, password and role.
+    </p>
 
-    <div>
-        <label>Password</label>
-        <input type="password" name="password" />
-    </div>
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly"
+             class="validation-summary-errors"></div>
 
-    <br />
+        <div class="field">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" class="form-control"
+                   placeholder="Choose a username"
+                   autocomplete="username" />
+            <span asp-validation-for="Username"
+                  class="field-validation-error"></span>
+        </div>
 
-    <div>
-        <label asp-for="Role"></label>
+        <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password"
+                   class="form-control"
+                   placeholder="Create a password"
+                   autocomplete="new-password" />
+            <p class="form-hint">
+                Use a strong password and keep it private.
+            </p>
+        </div>
 
-        <select asp-for="Role">
-            <option value="User">User</option>
-            <option value="Admin">Admin</option>
-        </select>
+        <div class="field">
+            <label asp-for="Role">Account role</label>
+            <select asp-for="Role" class="form-control">
+                <option value="User">User — standard access</option>
+                <option value="Admin">Admin — management access</option>
+            </select>
+            <span asp-validation-for="Role"
+                  class="field-validation-error"></span>
+        </div>
 
-        <span asp-validation-for="Role"></span>
-    </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">
+                Create user
+            </button>
+            <a class="btn btn-outline" asp-action="Index">Cancel</a>
+        </div>
+    </form>
+</div>
 
-    <br />
-
-    <button type="submit">Save</button>
-
-</form>
-
-<br />
-
-<a asp-action="Index">Back to Users</a>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

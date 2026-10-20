@@ -1,13 +1,62 @@
 ﻿@model EmployeeManagement.Models.Employee
+@{
+    ViewData["Title"] = "Employee details";
+}
 
-<h1>Employee Details</h1>
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">PEOPLE DIRECTORY</p>
+        <h1 class="page-title">Employee details</h1>
+        <p class="page-subtitle">
+            Review the information for this employee.
+        </p>
+    </div>
+    <a class="btn btn-outline" asp-action="Index">
+        ← Back to employees
+    </a>
+</div>
 
-<p><strong>ID:</strong> @Model.Id</p>
-<p><strong>Name:</strong> @Model.Name</p>
-<p><strong>Email:</strong> @Model.Email</p>
-<p><strong>Department:</strong> @Model.Department</p>
-<p><strong>Salary:</strong> @Model.Salary</p>
+<div class="detail-card">
+    <div class="form-top-icon" aria-hidden="true">♙</div>
+    <h2 class="panel-title">@Model.Name</h2>
+    <p class="page-subtitle">Employee ID #@Model.Id</p>
 
-<br />
+    <div class="detail-grid">
+        <div class="detail-item">
+            <span class="detail-label">Full name</span>
+            <span class="detail-value">@Model.Name</span>
+        </div>
 
-<a asp-action="Index">Back to Employees</a>
+        <div class="detail-item">
+            <span class="detail-label">Email address</span>
+            <span class="detail-value">@Model.Email</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Department</span>
+            <span class="detail-value">@Model.Department</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Salary</span>
+            <span class="detail-value">
+                @Model.Salary.ToString(
+                         "C",
+                         System.Globalization.CultureInfo.GetCultureInfo("en-IN"))
+            </span>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <a class="btn btn-outline" asp-action="Index">Back to list</a>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="btn btn-primary"
+               asp-action="Edit"
+               asp-route-id="@Model.Id">
+                Edit employee
+            </a>
+        }
+    </div>
+</div>
