@@ -1,8 +1,22 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Welcome";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="welcome-card">
+    <p class="eyebrow">YOUR WORKSPACE</p>
+
+    <h1>
+        Good work starts with a well-organized team.
+    </h1>
+
+    <p>
+        Welcome to PeopleDesk, your central place to view employee
+        information and keep team records organized.
+    </p>
+
+    <a class="btn btn-primary"
+       asp-controller="Employee"
+       asp-action="Index">
+        Explore employees <span aria-hidden="true">→</span>
+    </a>
 </div>

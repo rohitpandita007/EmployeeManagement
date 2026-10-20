@@ -1,23 +1,50 @@
 ﻿@model EmployeeManagement.Models.Employee
+@{
+    ViewData["Title"] = "Delete employee";
+}
 
-<h1>Delete Employee</h1>
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">PEOPLE DIRECTORY</p>
+        <h1 class="page-title">Delete employee</h1>
+        <p class="page-subtitle">
+            Review this record before confirming deletion.
+        </p>
+    </div>
+</div>
 
-<p>Are you sure you want to delete this employee?</p>
+<div class="confirm-card">
+    <div class="warning-icon" aria-hidden="true">!</div>
 
-<p><strong>ID:</strong> @Model.Id</p>
-<p><strong>Name:</strong> @Model.Name</p>
-<p><strong>Email:</strong> @Model.Email</p>
-<p><strong>Department:</strong> @Model.Department</p>
-<p><strong>Salary:</strong> @Model.Salary</p>
+    <h1>Delete this employee?</h1>
+    <p>
+        This action will remove the employee record.
+        Please confirm that you want to continue.
+    </p>
 
-<form asp-action="DeleteConfirmed" method="post">
+    <div class="confirm-summary">
+        <div><span>Employee ID</span><strong>#@Model.Id</strong></div>
+        <div><span>Name</span><strong>@Model.Name</strong></div>
+        <div><span>Email</span><strong>@Model.Email</strong></div>
+        <div><span>Department</span><strong>@Model.Department</strong></div>
+        <div>
+            <span>Salary</span>
+            <strong>
+                @Model.Salary.ToString(
+                         "C",
+                         System.Globalization.CultureInfo.GetCultureInfo("en-IN"))
+            </strong>
+        </div>
+    </div>
 
-    <input type="hidden" asp-for="Id" />
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id" />
 
-    <button type="submit">Yes, Delete</button>
-
-</form>
-
-<br />
-
-<a asp-action="Index">Cancel</a>
+        <div class="form-actions">
+            <button class="btn btn-danger" type="submit">
+                Yes, delete employee
+            </button>
+            <a class="btn btn-outline" asp-action="Index">Cancel</a>
+        </div>
+    </form>
+</div>

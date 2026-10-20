@@ -1,36 +1,56 @@
 ﻿@model EmployeeManagement.Models.User
+@{
+    ViewData["Title"] = "Edit user";
+}
 
-<h1>Edit User</h1>
-
-<form asp-action="Edit" method="post">
-
-    <input type="hidden" asp-for="Id" />
-
+<div class="page-heading">
     <div>
-        <label asp-for="Username"></label>
-        <input asp-for="Username" />
-        <span asp-validation-for="Username"></span>
+        <p class="eyebrow">ACCESS & PERMISSIONS</p>
+        <h1 class="page-title">Edit user</h1>
+        <p class="page-subtitle">
+            Update account details and role permissions.
+        </p>
     </div>
+</div>
 
-    <br />
+<div class="form-card narrow">
+    <div class="form-top-icon" aria-hidden="true">✎</div>
+    <h2 class="panel-title">Account information</h2>
+    <p class="page-subtitle mb-3">User ID: #@Model.Id</p>
 
-    <div>
-        <label asp-for="Role"></label>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
 
-        <select asp-for="Role">
-            <option value="User">User</option>
-            <option value="Admin">Admin</option>
-        </select>
+        <div asp-validation-summary="ModelOnly"
+             class="validation-summary-errors"></div>
 
-        <span asp-validation-for="Role"></span>
-    </div>
+        <div class="field">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" class="form-control"
+                   autocomplete="username" />
+            <span asp-validation-for="Username"
+                  class="field-validation-error"></span>
+        </div>
 
-    <br />
+        <div class="field">
+            <label asp-for="Role">Account role</label>
+            <select asp-for="Role" class="form-control">
+                <option value="User">User — standard access</option>
+                <option value="Admin">Admin — management access</option>
+            </select>
+            <span asp-validation-for="Role"
+                  class="field-validation-error"></span>
+        </div>
 
-    <button type="submit">Update User</button>
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">
+                Save changes
+            </button>
+            <a class="btn btn-outline" asp-action="Index">Cancel</a>
+        </div>
+    </form>
+</div>
 
-</form>
-
-<br />
-
-<a asp-action="Index">Back to Users</a>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -17,10 +17,17 @@ namespace EmployeeManagement.Services
 
         public User? ValidateUser(string username, string password)
         {
+            if (string.IsNullOrWhiteSpace(username) ||
+                string.IsNullOrEmpty(password))
+            {
+                return null;
+            }
+
             var user = _context.Users
                 .FirstOrDefault(u => u.Username == username);
 
-            if (user == null)
+            if (user == null ||
+                string.IsNullOrWhiteSpace(user.PasswordHash))
             {
                 return null;
             }
@@ -30,7 +37,8 @@ namespace EmployeeManagement.Services
                 user.PasswordHash,
                 password);
 
-            if (result == PasswordVerificationResult.Success)
+            if (result == PasswordVerificationResult.Success ||
+                result == PasswordVerificationResult.SuccessRehashNeeded)
             {
                 return user;
             }

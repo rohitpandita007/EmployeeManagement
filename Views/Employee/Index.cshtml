@@ -1,78 +1,106 @@
 ﻿@model List<EmployeeManagement.Models.Employee>
-@using System.Security.Claims
-
-<h1>Employees</h1>
-
-<form asp-controller="Account"
-      asp-action="Logout"
-      method="post">
-
-    <button type="submit">Logout</button>
-
-</form>
-
-<br />
-
-<br />
-
-@if (User.IsInRole("Admin"))
-{
-    <a asp-action="Create">Add Employee</a>
+@{
+    ViewData["Title"] = "Employees";
 }
-<br />
-<br />
 
-<table border="1">
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">PEOPLE DIRECTORY</p>
+        <h1 class="page-title">Employees</h1>
+        <p class="page-subtitle">
+            View and manage your organization's employee records.
+        </p>
+    </div>
 
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Department</th>
-            <th>Salary</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-primary" asp-action="Create">
+            <span aria-hidden="true">＋</span> Add employee
+        </a>
+    }
+</div>
 
-    <tbody>
+<section class="panel">
+    <div class="panel-head">
+        <div>
+            <h2 class="panel-title">Employee directory</h2>
+            <p class="panel-note">
+                @Model.Count record(s) in the directory
+            </p>
+        </div>
+        <span class="badge badge-department">● Employee records</span>
+    </div>
 
-        @foreach (var employee in Model)
-        {
-            <tr>
-                <td>@employee.Id</td>
-
-                <td>@employee.Name</td>
-
-                <td>@employee.Email</td>
-
-                <td>@employee.Department</td>
-
-                <td>@employee.Salary</td>
-
-                <td>
-                    <a asp-action="Details" asp-route-id="@employee.Id">
-                        Details
-                    </a>
-
-                    @if (User.IsInRole("Admin"))
+    @if (Model.Count == 0)
+    {
+        <div class="empty-state">
+            <div class="empty-icon">♙</div>
+            <strong>No employees yet</strong>
+            <span>Employee records will appear here when they are added.</span>
+        </div>
+    }
+    else
+    {
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Employee</th>
+                        <th>Email address</th>
+                        <th>Department</th>
+                        <th>Salary</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model)
                     {
-                        <span>|</span>
+                        <tr>
+                            <td>
+                                <span class="id-chip">#@employee.Id</span>
+                            </td>
+                            <td class="cell-primary">@employee.Name</td>
+                            <td>@employee.Email</td>
+                            <td>
+                                <span class="badge badge-department">
+                                    @employee.Department
+                                </span>
+                            </td>
+                            <td class="salary">
+                                @employee.Salary.ToString(
+                                         "C",
+                                         System.Globalization.CultureInfo
+                                         .GetCultureInfo("en-IN"))
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    <a class="btn btn-outline btn-sm"
+                                       asp-action="Details"
+                                       asp-route-id="@employee.Id">
+                                        View
+                                    </a>
 
-                        <a asp-action="Edit" asp-route-id="@employee.Id">
-                            Edit
-                        </a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a class="btn btn-outline btn-sm"
+                                           asp-action="Edit"
+                                           asp-route-id="@employee.Id">
+                                            Edit
+                                        </a>
 
-                        <span>|</span>
-
-                        <a asp-action="Delete" asp-route-id="@employee.Id">
-                            Delete
-                        </a>
+                                        <a class="btn btn-danger btn-sm"
+                                           asp-action="Delete"
+                                           asp-route-id="@employee.Id">
+                                            Delete
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
                     }
-                </td>
-            </tr>
-        }
-
-    </tbody>
-
-</table>
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
